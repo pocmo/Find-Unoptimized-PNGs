@@ -9,3 +9,4 @@ Find PNGs in need of optimization
       -h, --help         show this help message and exit
       --path PATH        Path to search for PNGs in (default: .)
       --command COMMAND  Command to compress PNGs (default: pngcrush)
+      --filter FILTER    Filter file path. Matching files will be ignored

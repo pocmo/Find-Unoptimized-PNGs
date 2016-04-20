@@ -13,6 +13,7 @@ def main():
 	parser = argparse.ArgumentParser(description='Find PNGs in need of optimization')
 	parser.add_argument('--path', dest='path', action='store', help='Path to search for PNGs in (default: .)', default='.')
 	parser.add_argument('--command', dest='command', action='store', help='Command to compress PNGs (default: pngcrush)', default='pngcrush')
+	parser.add_argument('--filter', dest='filter', action='store', help='Filter file path. Matching files will be ignored', default=None)
 
 	args = parser.parse_args()
 
@@ -25,6 +26,10 @@ def main():
 	for root, directory, files in os.walk(args.path):
 		for item in fnmatch.filter(files, "*.png"):
 			path = root + os.sep + item
+
+			if args.filter and args.filter in path:
+				continue
+
 			original_size = os.path.getsize(path)
 
 			return_code = subprocess.call([args.command, path, TEMPORARY_FILE])
