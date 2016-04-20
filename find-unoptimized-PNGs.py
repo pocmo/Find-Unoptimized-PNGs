@@ -42,6 +42,10 @@ def main():
 
 	print "%s file(s) are optimized, %s file(s) are in need of optimization" % (len(optimized_files), len(unoptimized_files))
 
+	total_bytes = 0
+	optimized_bytes = 0
+	total_saved = 0
+
 	if unoptimized_files:
 		for (path, original_size, optimized_size) in unoptimized_files:
 			difference = original_size - optimized_size
@@ -49,6 +53,11 @@ def main():
 			print path
 			print "-" + str(percentage) + "% / -" + str(difference) + " bytes   original=" + str(original_size) + " bytes, optimized=" + str(optimized_size) + " bytes"
 			print
+			total_saved += difference
+			total_bytes += original_size
+			optimized_bytes += optimized_size
+
+		print "%s files with %s bytes, %s bytes optmized (- %s bytes)" % (len(optimized_files) + len(unoptimized_files), total_bytes, optimized_bytes, total_saved)
 
 if __name__ == '__main__':
     main()
